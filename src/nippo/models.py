@@ -2,6 +2,7 @@ from django.db import models
 
 
 #git pull pushのテスト
+#git pull pushのテスト会社から
 
 class NippoModel(models.Model):
     title = models.CharField(max_length=100)
