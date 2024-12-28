@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import nippoListView #ポイント1
+from .views import nippoListView , nippoDetailView
 
 urlpatterns = [
-    path("", nippoListView), #ポイント2
+    path("", nippoListView), 
+    path("detail/", nippoDetailView)
 ]
