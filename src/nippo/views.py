@@ -30,6 +30,16 @@ class NippoCreateModelFormView(CreateView):
     form_class = NippoModelForm
     success_url = reverse_lazy("nippo-list")
 
+#class NippoCreateFormView(CreateView):
+#   template_name = "nippo/nippo-formclass.html"
+#    form_class = NippoModelForm
+#    success_url = reverse_lazy("nippo-list")
+
+    def get_form_kwargs(self, *args, **kwargs):
+        kwgs = super().get_form_kwargs(*args, **kwargs)
+        kwgs["user"] = self.request.user
+        return kwgs
+
 class NippoUpdateModelFormView(UpdateView):
     template_name = "nippo/nippo-form.html"
     model = NippoModel
