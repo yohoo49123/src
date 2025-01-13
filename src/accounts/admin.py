@@ -3,8 +3,11 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 from .models import User, Profile
 
+from .forms import CustomAdminChangeForm
+
 class UserAdmin(BaseUserAdmin):
-    #一覧表示
+    form = CustomAdminChangeForm
+
     list_display = (
         "email",
         "active",
@@ -15,11 +18,22 @@ class UserAdmin(BaseUserAdmin):
         "admin",
         "active",
     )
-    ordering = ("email",)
     filter_horizontal = ()
+    ordering = ("email",)
     search_fields = ('email',)
 
-    #新規登録用
+    fieldsets = (
+        (None, {'fields': ('email', 'password')}),
+        ('プロフィール', {'fields': (
+            'username',
+            'department',
+            'phone_number',
+            'gender',
+            'birthday',
+        )}),
+        ('Permissions', {'fields': ('staff','admin',)}),
+    )
+
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
@@ -27,11 +41,6 @@ class UserAdmin(BaseUserAdmin):
         ),
     )
 
-    #編集用
-    fieldsets = (
-        (None, {'fields': ('email', 'password')}),
-        ('権限', {'fields': ('staff','admin',)}),
-    )
-    
 admin.site.register(User, UserAdmin)
-admin.site.register(Profile)
+#Profileクラスは不要になったのでコメントアウト
+# admin.site.register(Profile)
