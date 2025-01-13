@@ -1,11 +1,19 @@
 from django import forms
+
+#誕生日を入力する為の機能DateField
 from django.forms.fields import DateField
+
+#多言語の為の翻訳機能。今回のアプリでは不要かもgettext_lazy
 from django.utils.translation import gettext, gettext_lazy as _
+
+#編集ページを編集する為の元となるモデルクラス。このクラスを継承する
 from django.contrib.auth.forms import UserChangeForm
 
 from .models import User, Profile, GENDER_CHOICE
 
 #GENDER_CHOICE = [(None, "--"), ("m", "男性"), ("f", "女性")]はmodels.pyで定義してます
+
+
 
 class CustomAdminChangeForm(UserChangeForm):
 #Profileクラスのフィールドを追記します
@@ -57,3 +65,10 @@ class CustomAdminChangeForm(UserChangeForm):
         if commit:
             user_obj.save()
         return user_obj
+
+
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        exclude = ["user"]

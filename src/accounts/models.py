@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
+from django.db.models.signals import post_save
 
 GENDER_CHOICE = [(None, "--"), ("m", "男性"), ("f", "女性")]
 
@@ -80,3 +81,14 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.username
+
+def post_user_created(sender, instance, created, **kwargs):
+    #createdは新規ユーザーが作成された時のみTrueとなる。
+    #instanceには新規Usermodelのオブジェクトが渡されている。
+    if created:
+        profile_obj = Profile(user=instance)
+        #usernameは必須項目なので、初期値をemailに設定している
+        profile_obj.username = instance.email
+        profile_obj.save()
+
+post_save.connect(post_user_created, sender=User)
