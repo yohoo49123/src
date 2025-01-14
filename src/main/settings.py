@@ -150,6 +150,8 @@ LOGIN_REDIRECT_URL = reverse_lazy('nippo-list')
 #ログアウト後のリダイレクト先を指定
 ACCOUNT_LOGOUT_REDIRECT_URL = reverse_lazy("account_login")
 
+ACCOUNT_ADAPTER = "accounts.adapter.MyNippoAdapter"
+
 #メールアドレスが確認済みである必要がある
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 

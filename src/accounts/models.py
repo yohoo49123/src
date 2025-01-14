@@ -83,12 +83,8 @@ class Profile(models.Model):
         return self.username
 
 def post_user_created(sender, instance, created, **kwargs):
-    #createdは新規ユーザーが作成された時のみTrueとなる。
-    #instanceには新規Usermodelのオブジェクトが渡されている。
     if created:
         profile_obj = Profile(user=instance)
-        #usernameは必須項目なので、初期値をemailに設定している
         profile_obj.username = instance.email
         profile_obj.save()
-
 post_save.connect(post_user_created, sender=User)

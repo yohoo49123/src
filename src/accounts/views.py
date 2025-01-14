@@ -1,5 +1,4 @@
 from django.shortcuts import render
-
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.views.generic.edit import UpdateView
 from django.urls import reverse_lazy
