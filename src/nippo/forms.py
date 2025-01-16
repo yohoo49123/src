@@ -16,8 +16,12 @@ class NippoModelForm(forms.ModelForm):
         exclude = ["user"]
 
     def __init__(self, user=None, *args, **kwargs):
-        for field in self.base_fields.values():
-            field.widget.attrs["class"] = "form-control"
+        for key, field in self.base_fields.items():
+            if key != "public":
+                field.widget.attrs["class"] = "form-control"
+            else:
+                field.widget.attrs["class"] = "form-check-input"
+
         self.user = user
         super().__init__(*args, **kwargs)
         
