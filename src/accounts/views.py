@@ -5,6 +5,7 @@ from django.urls import reverse_lazy
 
 from .models import Profile
 from .forms import ProfileUpdateForm
+from utils.access_restrictions import OwnProfileOnly
 
 class OwnProfileOnly(UserPassesTestMixin):
     def test_func(self):
