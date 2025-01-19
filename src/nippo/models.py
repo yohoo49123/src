@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 User = get_user_model()
 
 from django.db.models import Q #インポート
@@ -13,7 +14,7 @@ class NippoModelQuerySet(models.QuerySet):
                 Q(content__icontains=query)            
             )
             qs = qs.filter(or_lookup).distinct()
-        return qs.order_by("-timestamp") #新しい順に並び替えてます
+        return qs.order_by("-date") #新しい順に並び替えてます
     
 class NippoModelManager(models.Manager):
     def get_queryset(self):
@@ -25,6 +26,7 @@ class NippoModel(models.Model):
     title = models.CharField(max_length=100, verbose_name="タイトル")
     content = models.TextField(max_length=1000, verbose_name="内容")
     public = models.BooleanField(default=False, verbose_name="公開する")
+    date = models.DateField(default=timezone.now)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     class Meta:

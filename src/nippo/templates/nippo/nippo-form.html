@@ -12,6 +12,8 @@
     </div>
     
     <form method="POST"> {% csrf_token %}
+    {% bootstrap_javascript jquery='full' %} 
+    {{ form.media }}
     {{ form.as_p }}
     {% if object %}
         <button class="btn btn-primary form-control" type="submit">保存</button>
